@@ -10,13 +10,13 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// BeneficiaryAnalyzer is responsible for analyzing transactions to identify beneficiaries
+// responsible for analyzing transactions to identify beneficiaries
 type BeneficiaryAnalyzer struct {
 	etherscanClient *etherscan.Client
 	debug           bool
 }
 
-// NewBeneficiaryAnalyzer creates a new beneficiary analyzer
+// creates a new beneficiary analyzer
 func NewBeneficiaryAnalyzer(etherscanClient *etherscan.Client) *BeneficiaryAnalyzer {
 	return &BeneficiaryAnalyzer{
 		etherscanClient: etherscanClient,
@@ -24,21 +24,21 @@ func NewBeneficiaryAnalyzer(etherscanClient *etherscan.Client) *BeneficiaryAnaly
 	}
 }
 
-// Beneficiary represents a beneficiary address with transaction details
+// represents a beneficiary address with transaction details
 type Beneficiary struct {
 	Address      string               `json:"beneficiary_address"`
 	Amount       float64              `json:"amount"`
 	Transactions []TransactionDetails `json:"transactions"`
 }
 
-// TransactionDetails represents simplified transaction details
+// represents simplified transaction details
 type TransactionDetails struct {
 	TxAmount      float64 `json:"tx_amount"`
 	DateTime      string  `json:"date_time"`
 	TransactionID string  `json:"transaction_id"`
 }
 
-// AnalyzeBeneficiary analyzes the transaction flow for a given address to identify beneficiaries
+// analyzes the transaction flow for a given address to identify beneficiaries
 func (ba *BeneficiaryAnalyzer) AnalyzeBeneficiary(address string) ([]Beneficiary, error) {
 	if ba.debug {
 		fmt.Printf("DEBUG: Starting beneficiary analysis for address: %s\n", address)
@@ -167,7 +167,7 @@ func (ba *BeneficiaryAnalyzer) AnalyzeBeneficiary(address string) ([]Beneficiary
 	return beneficiaries, nil
 }
 
-// processBeneficiary adds a transaction to the beneficiary map
+// adds a transaction to the beneficiary map
 func (ba *BeneficiaryAnalyzer) processBeneficiary(beneficiaryMap map[string]*Beneficiary, 
 	beneficiaryAddr, valueStr, hash, timestampStr string) {
 		
@@ -217,8 +217,6 @@ func (ba *BeneficiaryAnalyzer) processBeneficiary(beneficiaryMap map[string]*Ben
 	}
 }
 
-// Helper function to convert string to int64
-// Helper function to convert string to int64
 func stringToInt64(s string) (int64, error) {
     // Parse the string to an integer
     i, ok := new(big.Int).SetString(s, 10)

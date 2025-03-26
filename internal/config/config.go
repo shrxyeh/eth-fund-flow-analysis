@@ -15,7 +15,6 @@ type Config struct {
 
 // LoadConfig loads configuration from environment variables
 func LoadConfig() (*Config, error) {
-	// Load .env file if it exists
 	_ = godotenv.Load()
 
 	etherscanAPIKey := os.Getenv("ETHERSCAN_API_KEY")

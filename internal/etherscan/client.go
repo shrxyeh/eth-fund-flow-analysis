@@ -34,8 +34,6 @@ func NewClient(apiKey string) *Client {
 
 // GetNormalTransactions fetches normal transactions for an address with pagination
 func (c *Client) GetNormalTransactions(address string) ([]Transaction, error) {
-	// Only fetch a limited number of transactions to avoid timeout
-	// Most beneficiary/payer analysis would focus on recent transactions anyway
 	endpoint := fmt.Sprintf("%s?module=account&action=txlist&address=%s&startblock=0&endblock=99999999&page=1&offset=100&sort=desc&apikey=%s",
 		baseURL, address, c.apiKey)
 	
@@ -174,7 +172,7 @@ func (c *Client) fetchTransactions(endpoint string) ([]Transaction, error) {
 		fmt.Printf("DEBUG: Transaction response: %s\n", responsePreview)
 	}
 
-	// First try to parse as a standard response with array result
+	// parse as a standard response with array result
 	var result TransactionResponse
 	if err := json.Unmarshal(body, &result); err != nil {
 		// Check if it's a response with a non-array result (like error messages)

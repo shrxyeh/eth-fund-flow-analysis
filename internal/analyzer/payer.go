@@ -9,12 +9,12 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// PayerAnalyzer is responsible for analyzing transactions to identify payers
+// responsible for analyzing transactions to identify payers
 type PayerAnalyzer struct {
 	etherscanClient *etherscan.Client
 }
 
-// NewPayerAnalyzer creates a new payer analyzer
+// creates a new payer analyzer
 func NewPayerAnalyzer(etherscanClient *etherscan.Client) *PayerAnalyzer {
 	return &PayerAnalyzer{
 		etherscanClient: etherscanClient,
@@ -28,7 +28,7 @@ type Payer struct {
 	Transactions []TransactionDetails `json:"transactions"`
 }
 
-// AnalyzePayer analyzes the transaction flow for a given address to identify payers
+// analyzes the transaction flow for a given address to identify payers
 func (pa *PayerAnalyzer) AnalyzePayer(address string) ([]Payer, error) {
 	// Fetch all transaction types concurrently
 	var normalTxs []etherscan.Transaction
@@ -102,7 +102,7 @@ func (pa *PayerAnalyzer) AnalyzePayer(address string) ([]Payer, error) {
 	return payers, nil
 }
 
-// processPayer adds a transaction to the payer map
+// adds a transaction to the payer map
 func (pa *PayerAnalyzer) processPayer(payerMap map[string]*Payer, 
 	payerAddr, valueStr, hash, timestampStr string) {
 		

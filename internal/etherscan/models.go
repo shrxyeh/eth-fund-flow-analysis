@@ -60,19 +60,15 @@ type TokenTransfer struct {
 
 // FormatTime formats the timestamp from the Etherscan API
 func FormatTime(timestamp string) (string, error) {
-	// Print debug info
 	fmt.Printf("DEBUG: FormatTime called with timestamp: %s\n", timestamp)
 	
-	// Convert string timestamp to int64
 	unixTime, err := strconv.ParseInt(timestamp, 10, 64)
 	if err != nil {
 		return "", fmt.Errorf("error parsing timestamp: %w", err)
 	}
 	
-	// Create time from Unix timestamp
 	t := time.Unix(unixTime, 0)
 	
-	// Format time as YYYY-MM-DD HH:MM:SS
 	formatted := t.Format("2006-01-02 15:04:05")
 	
 	fmt.Printf("DEBUG: Formatted timestamp: %s -> %s\n", timestamp, formatted)
